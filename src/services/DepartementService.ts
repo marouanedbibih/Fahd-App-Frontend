@@ -63,3 +63,14 @@ export const deleteDepartementAPI = async (id: number): Promise<MyResponse> => {
         throw error.response.data;
     }
 }
+
+
+// Fetch departements for select dropdown
+export const fetchDepartementsForSelectAPI = async (): Promise<MyResponse> => {
+    try {
+        const { data } = await axiosClient.get(`/api/v1/departements/dropdown`);
+        return data;
+    } catch (error: any) {
+        throw error.response.data;
+    }
+}

@@ -1,25 +1,32 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useDepartementContext } from "@/contexts/DepartementProvider";
-import { useGlobalContext } from "@/contexts/GlobalProvider"
-import { createDepartementAPI, deleteDepartementAPI, fetchDepartementAPI, fetchDepartementsForSelectAPI, fetchListOfDepartementsAPI, searchDepartementsAPI, updateDepartementAPI } from "@/services/DepartementService";
+import { useEmployeeContext } from "@/contexts/EmployeeProvider";
+import { useGlobalContext } from "@/contexts/GlobalProvider";
+import {
+    createEmployeeAPI,
+    deleteEmployeeAPI,
+    fetchEmployeeAPI,
+    fetchListOfEmployeesAPI,
+    searchEmployeesAPI,
+    updateEmployeeAPI
+} from "@/services/EmployeeService";
 import { MessageType, MyErrorResponse, MyResponse } from "@/types";
-import { IDepartementRequest } from "@/types/departement";
+import { IEmployeeRequest } from "@/types/employee";
 import React from "react";
 
-// Fetch the list of departements
-export const useFetchListOfDepartements = () => {
-    //Import the necessary state form the Global Context
+// Fetch the list of employees
+export const useFetchListOfEmployees = () => {
+    // Import the necessary state from the Global Context
     const { setAlertOpen, setMessage } = useGlobalContext();
-    const { fetching, } = useGlobalContext();
+    const { fetching } = useGlobalContext();
     const { setPagination, pagination } = useGlobalContext();
     const { setLoading, loading } = useGlobalContext();
-    // Import the necessary state from the Departement Context
-    const { setData } = useDepartementContext();
+    // Import the necessary state from the Employee Context
+    const { setData } = useEmployeeContext();
 
-    // Define the function to fetch the list of departements
-    const fetchListOfDepartements = async (page: number, size: number) => {
+    // Define the function to fetch the list of employees
+    const fetchListOfEmployees = async (page: number, size: number) => {
         setLoading({ ...loading, table: true, form: false, filter: false });
-        fetchListOfDepartementsAPI(page, size)
+        fetchListOfEmployeesAPI(page, size)
             .then((res: MyResponse) => {
                 res.data
                     ? setData(res.data)
@@ -41,32 +48,32 @@ export const useFetchListOfDepartements = () => {
             });
     };
 
-    // UseEffect to fetch the list of departements
+    // UseEffect to fetch the list of employees
     React.useEffect(() => {
         if (fetching.normal) {
-            fetchListOfDepartements(pagination.currentPage, pagination.size);
+            fetchListOfEmployees(pagination.currentPage, pagination.size);
         }
     }, [fetching.normal, pagination.currentPage, pagination.size]);
 
     // Return the function to be used in the component
-    return { fetchListOfDepartements };
+    return { fetchListOfEmployees };
 }
 
-// Search departements
-export const useSearchDepartements = () => {
-    // Import the necessary state form the Global Context
+// Search employees
+export const useSearchEmployees = () => {
+    // Import the necessary state from the Global Context
     const { setAlertOpen, setMessage } = useGlobalContext();
     const { fetching, setFetching } = useGlobalContext();
     const { setPagination, pagination } = useGlobalContext();
     const { setLoading, loading } = useGlobalContext();
-    // Import the necessary state from the Departement Context
-    const { setData } = useDepartementContext();
-    const { searchKeyword, setSearchKeyword } = useDepartementContext();
+    // Import the necessary state from the Employee Context
+    const { setData } = useEmployeeContext();
+    const { searchKeyword, setSearchKeyword } = useEmployeeContext();
 
-    // Define the function to search departements
-    const searchDepartements = async (keyword: string, page: number, size: number) => {
+    // Define the function to search employees
+    const searchEmployees = async (keyword: string, page: number, size: number) => {
         setLoading({ ...loading, table: true, form: false, filter: false });
-        searchDepartementsAPI(keyword, page, size)
+        searchEmployeesAPI(keyword, page, size)
             .then((res: MyResponse) => {
                 if (res.data) {
                     setData(res.data);
@@ -91,29 +98,29 @@ export const useSearchDepartements = () => {
             });
     };
 
-    // UseEffect to search departements
+    // UseEffect to search employees
     React.useEffect(() => {
         if (fetching.search) {
-            searchDepartements(searchKeyword, pagination.currentPage, pagination.size);
+            searchEmployees(searchKeyword, pagination.currentPage, pagination.size);
         }
     }, [fetching.search, searchKeyword, pagination.currentPage, pagination.size]);
 
     // Return the function to be used in the component
-    return { searchDepartements, setSearchKeyword, setFetching, pagination };
+    return { searchEmployees, setSearchKeyword, setFetching, pagination };
 }
 
-// Fetch a single departement
-export const useFetchDepartement = () => {
-    // Import the necessary state form the Global Context
+// Fetch a single employee
+export const useFetchEmployee = () => {
+    // Import the necessary state from the Global Context
     const { setAlertOpen, setMessage } = useGlobalContext();
     const { setLoading, loading } = useGlobalContext();
-    // Import the necessary state from the Departement Context
-    const { setRequest } = useDepartementContext();
+    // Import the necessary state from the Employee Context
+    const { setRequest } = useEmployeeContext();
 
-    // Define the function to fetch a single departement
-    const fetchDepartement = async (id: number) => {
+    // Define the function to fetch a single employee
+    const fetchEmployee = async (id: number) => {
         setLoading({ ...loading, table: false, form: true, filter: false });
-        fetchDepartementAPI(id)
+        fetchEmployeeAPI(id)
             .then((res: MyResponse) => {
                 setRequest(res.data);
             })
@@ -127,25 +134,25 @@ export const useFetchDepartement = () => {
     };
 
     // Return the function to be used in the component
-    return { fetchDepartement };
+    return { fetchEmployee };
 }
 
-// Create a new departement
-export const useCreateDepartement = () => {
-    // Import the necessary state form the Global Context
+// Create a new employee
+export const useCreateEmployee = () => {
+    // Import the necessary state from the Global Context
     const { setAlertOpen, setMessage } = useGlobalContext();
     const { setLoading, loading } = useGlobalContext();
     const { setErrors } = useGlobalContext();
     const { dialog, setDialog } = useGlobalContext();
-    // Import the necessary state from the Departement Context
-    const { initRequest } = useDepartementContext();
+    // Import the necessary state from the Employee Context
+    const { initRequest } = useEmployeeContext();
     // Import ReFetchData
     const { reFetchData } = useReFetchData();
 
-    // Define the function to create a new departement
-    const createDepartement = async (request: IDepartementRequest) => {
+    // Define the function to create a new employee
+    const createEmployee = async (request: IEmployeeRequest) => {
         setLoading({ ...loading, table: false, form: true, filter: false });
-        createDepartementAPI(request)
+        createEmployeeAPI(request)
             .then((res: MyResponse) => {
                 setDialog({ ...dialog, form: false, delete: false, filter: false });
                 initRequest();
@@ -163,26 +170,26 @@ export const useCreateDepartement = () => {
     }
 
     // Return the function to be used in the component
-    return { createDepartement };
+    return { createEmployee };
 }
 
-// Update a departement
-export const useUpdateDepartement = () => {
-    // Import the necessary state form the Global Context
+// Update an employee
+export const useUpdateEmployee = () => {
+    // Import the necessary state from the Global Context
     const { setAlertOpen, setMessage } = useGlobalContext();
     const { setLoading, loading } = useGlobalContext();
-    const { setErrors, } = useGlobalContext();
+    const { setErrors } = useGlobalContext();
     const { dialog, setDialog } = useGlobalContext();
     const { ID, setID } = useGlobalContext();
-    // Import the necessary state from the Departement Context
-    const { initRequest } = useDepartementContext();
+    // Import the necessary state from the Employee Context
+    const { initRequest } = useEmployeeContext();
     // Import ReFetchData
     const { reFetchData } = useReFetchData();
 
-    // Define the function to update a departement
-    const updateDepartement = async (id: number, request: IDepartementRequest) => {
+    // Define the function to update an employee
+    const updateEmployee = async (id: number, request: IEmployeeRequest) => {
         setLoading({ ...loading, table: false, form: true, filter: false });
-        updateDepartementAPI(id, request)
+        updateEmployeeAPI(id, request)
             .then((res: MyResponse) => {
                 setID({ ...ID, update: null });
                 setDialog({ ...dialog, form: false, delete: false, filter: false });
@@ -201,13 +208,12 @@ export const useUpdateDepartement = () => {
     }
 
     // Return the function to be used in the component
-    return { updateDepartement };
+    return { updateEmployee };
 }
 
-
-// Delete a departement
-export const useDeleteDepartement = () => {
-    // Import the necessary state form the Global Context
+// Delete an employee
+export const useDeleteEmployee = () => {
+    // Import the necessary state from the Global Context
     const { setAlertOpen, setMessage } = useGlobalContext();
     const { setLoading, loading } = useGlobalContext();
     const { dialog, setDialog } = useGlobalContext();
@@ -215,10 +221,10 @@ export const useDeleteDepartement = () => {
     // Import ReFetchData
     const { reFetchData } = useReFetchData();
 
-    // Define the function to delete a departement
-    const deleteDepartement = async (id: number) => {
+    // Define the function to delete an employee
+    const deleteEmployee = async (id: number) => {
         setLoading({ ...loading, table: false, form: false, filter: false });
-        deleteDepartementAPI(id)
+        deleteEmployeeAPI(id)
             .then((res: MyResponse) => {
                 setID({ ...ID, delete: null });
                 setDialog({ ...dialog, form: false, delete: false, filter: false });
@@ -235,61 +241,27 @@ export const useDeleteDepartement = () => {
     }
 
     // Return the function to be used in the component
-    return { deleteDepartement };
+    return { deleteEmployee };
 }
 
-
-// Refetch Data 
+// Refetch Data
 export const useReFetchData = () => {
-    // Import the necessary state 
-    const { fetchListOfDepartements } = useFetchListOfDepartements();
-    const { searchDepartements } = useSearchDepartements();
+    // Import the necessary state
+    const { fetchListOfEmployees } = useFetchListOfEmployees();
+    const { searchEmployees } = useSearchEmployees();
     const { fetching } = useGlobalContext();
     const { pagination } = useGlobalContext();
-    const { searchKeyword } = useDepartementContext();
+    const { searchKeyword } = useEmployeeContext();
 
     // Define the function to refetch data
     const reFetchData = () => {
         if (fetching.normal) {
-            fetchListOfDepartements(pagination.currentPage, pagination.size);
+            fetchListOfEmployees(pagination.currentPage, pagination.size);
         } else if (fetching.search) {
-            searchDepartements(searchKeyword, pagination.currentPage, pagination.size);
+            searchEmployees(searchKeyword, pagination.currentPage, pagination.size);
         }
     }
 
     // Return the function to be used in the component
     return { reFetchData };
-
-}
-
-
-
-// Fetch departement for dropdown
-export const useFetchDepartementsForSelect = () => {
-    // Import the necessary state form the Global Context
-    const { setAlertOpen, setMessage } = useGlobalContext();
-    // Import the necessary state from the Departement Context
-    const { setDepartements } = useGlobalContext();
-
-    // Define the function to fetch departements for select dropdown
-    const fetchDepartementsForSelect = async () => {
-        fetchDepartementsForSelectAPI()
-            .then((res: MyResponse) => {
-                setDepartements(res.data);
-            })
-            .catch((err: MyErrorResponse) => {
-                setMessage({ message: err.message, type: MessageType.ERROR });
-                setAlertOpen(true);
-            })
-            .finally(() => {
-            });
-    }
-
-    // UseEffect to fetch departements for select dropdown
-    React.useEffect(() => {
-        fetchDepartementsForSelect();
-    }, []);
-
-    // Return the function to be used in the component
-    return { fetchDepartementsForSelect };
 }

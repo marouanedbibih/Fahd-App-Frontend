@@ -3,12 +3,13 @@
 import { DefaultNavbar } from "@/components/Navbar/DefaultNavbar";
 import { SideBar } from "@/components/Sidebar/SideBar";
 import { DepartementProvider } from "@/contexts/DepartementProvider";
+import { EmployeeProvider } from "@/contexts/EmployeeProvider";
 import { useGlobalContext } from "@/contexts/GlobalProvider";
 import { Spinner } from "@material-tailwind/react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-export default function DepratementLayout({
+export default function EmployeeLayout({
   children, // will be a page or nested layout
 }: {
   children: React.ReactNode;
@@ -59,7 +60,7 @@ export default function DepratementLayout({
         <div className="mb-8 w-full">
           <DefaultNavbar />
         </div>
-        <DepartementProvider>{children}</DepartementProvider>
+        <EmployeeProvider>{children}</EmployeeProvider>
       </main>
     </div>
   );

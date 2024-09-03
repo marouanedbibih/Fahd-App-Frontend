@@ -11,6 +11,7 @@ import {
   MessageType,
   MyError,
 } from "@/types";
+import { IDepartement } from "@/types/departement";
 import React, { createContext, useState, ReactNode, useContext } from "react";
 
 // Define the type for the context state
@@ -52,6 +53,10 @@ interface GlobalContextProps {
   setRoleInLocalStorage: (role: string) => void;
   getRoleFromLocalStorage: () => string | null;
   removeRoleFromLocalStorage: () => void;
+
+  // Department dropdown state
+  departements: IDepartement[];
+  setDepartements: (departments: IDepartement[]) => void;
 }
 
 // Create the context
@@ -167,6 +172,9 @@ const GlobalProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     }
   }, []);
 
+  // Department dropdown state
+  const [departements, setDepartements] = useState<IDepartement[]>([]);
+
   return (
     <GlobalContext.Provider
       value={{
@@ -205,6 +213,9 @@ const GlobalProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         setRoleInLocalStorage,
         getRoleFromLocalStorage,
         removeTokenFromLocalStorage,
+        // Department dropdown state
+        departements,
+        setDepartements,
       }}
     >
       {children}

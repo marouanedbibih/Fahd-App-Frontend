@@ -34,8 +34,8 @@ const menuItems = [
     icon: UserCircleIcon,
   },
   {
-    title: "Department",
-    path: "/department",
+    title: "Departement",
+    path: "/departement",
     icon: BuildingOfficeIcon,
   },
   {
