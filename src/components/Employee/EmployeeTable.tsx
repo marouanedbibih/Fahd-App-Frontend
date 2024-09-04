@@ -9,7 +9,7 @@ import {
   IconButton,
   Chip,
 } from "@material-tailwind/react";
-import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { PencilIcon, TrashIcon,EyeIcon } from "@heroicons/react/24/outline";
 
 import { useEmployeeContext } from "@/contexts/EmployeeProvider";
 import { useGlobalContext } from "@/contexts/GlobalProvider";
@@ -18,6 +18,7 @@ import { IEmployee } from "@/types/employee";
 import { SmallTextTable } from "../Text/SmallTextTable";
 import Pagination from "../Pagination/Pagination";
 import DeleteConfirmationDialog from "../Dialog/DeleteConfirmationDialog";
+import { useRouter } from "next/navigation";
 
 interface EmployeeTableProps {}
 
@@ -58,6 +59,13 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = () => {
   // Get secretary color
   const getSecretaryColor = (status: boolean) => {
     return status ? "green" : "red";
+  };
+
+  const router = useRouter(); // Initialize router hook
+  // OnView
+  const onView = (id: number) => {
+    router.push(`/employee/${id}`); // Redirect to employee details page
+    setID({ ...ID, fetch: id });
   };
 
   return (
@@ -135,6 +143,17 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = () => {
                     </div>
                   </td>
                   <td className={`${classes} flex flex-row gap-2`}>
+                    <Tooltip content="View Employee">
+                      <IconButton
+                        color="blue"
+                        onClick={() => onView(employee.employeeId)} // Call onView to redirect
+                      placeholder={undefined}
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
+                      >
+                        <EyeIcon className="h-4 w-4" />
+                      </IconButton>
+                    </Tooltip>
                     <Tooltip content="Edit Employee">
                       <IconButton
                         color="green"

@@ -10,7 +10,7 @@ import {
     updateEmployeeAPI
 } from "@/services/EmployeeService";
 import { MessageType, MyErrorResponse, MyResponse } from "@/types";
-import { IEmployeeRequest } from "@/types/employee";
+import { IEmployee, IEmployeeRequest } from "@/types/employee";
 import React from "react";
 
 // Fetch the list of employees
@@ -133,8 +133,9 @@ export const useFetchEmployee = () => {
             });
     };
 
+
     // Return the function to be used in the component
-    return { fetchEmployee };
+    return { fetchEmployee};
 }
 
 // Create a new employee

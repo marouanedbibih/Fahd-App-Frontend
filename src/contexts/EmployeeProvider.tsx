@@ -14,6 +14,9 @@ interface EmployeeContextProps {
   initRequest: () => void;
   searchKeyword: string;
   setSearchKeyword: (searchKeyword: string) => void;
+
+  employee: IEmployee | null;
+  setEmployee: (employee: IEmployee | null) => void;
 }
 
 // Create the context
@@ -50,6 +53,8 @@ const EmployeeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   const [searchKeyword, setSearchKeyword] = useState<string>("");
 
+  const [employee, setEmployee] = useState<IEmployee | null>(null);
+
   return (
     <EmployeeContext.Provider
       value={{
@@ -60,6 +65,8 @@ const EmployeeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         initRequest,
         searchKeyword,
         setSearchKeyword,
+        employee,
+        setEmployee,
       }}
     >
       {children}

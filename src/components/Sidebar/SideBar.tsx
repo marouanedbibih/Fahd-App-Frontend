@@ -9,11 +9,10 @@ import {
 } from "@material-tailwind/react";
 import {
   PresentationChartBarIcon,
-  UserCircleIcon,
   IdentificationIcon,
   BuildingOfficeIcon,
-  CalendarIcon,
 } from "@heroicons/react/24/solid";
+import { useGlobalContext } from "@/contexts/GlobalProvider";
 
 interface SideBarProps {}
 
@@ -22,27 +21,32 @@ const menuItems = [
     title: "Dashboard",
     path: "/dashboard",
     icon: PresentationChartBarIcon,
+    role: ["ADMIN"],
   },
   {
     title: "Employee",
     path: "/employee",
     icon: IdentificationIcon,
+    role: ["ADMIN","SECRETARY"],
   },
   {
     title: "Departement",
     path: "/departement",
     icon: BuildingOfficeIcon,
+    role: ["ADMIN"],
   },
-  {
-    title: "Schedule",
-    path: "/staff",
-    icon: CalendarIcon,
-  },
+
 ];
 
 export const SideBar: React.FC<SideBarProps> = () => {
   const pathname = usePathname() || "";
   const router = useRouter();
+
+  // Import the role from the global context
+  const {getRoleFromLocalStorage} = useGlobalContext();
+
+  const role = getRoleFromLocalStorage();
+
 
   return (
     <Card
