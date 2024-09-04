@@ -29,11 +29,6 @@ const menuItems = [
     icon: IdentificationIcon,
   },
   {
-    title: "Secretary",
-    path: "/secretary",
-    icon: UserCircleIcon,
-  },
-  {
     title: "Departement",
     path: "/departement",
     icon: BuildingOfficeIcon,

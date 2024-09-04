@@ -6,6 +6,7 @@ export interface IEmployeeRequest {
     password: string;
     job: string;
     departementId: number;
+    isSecretary: boolean;
 }
 
 export interface IEmployee {
@@ -22,4 +23,5 @@ export interface IEmployee {
     job: string;
     departementId?: number;
     departementName: string;
+    isSecretary: boolean;
 }

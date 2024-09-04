@@ -7,6 +7,7 @@ import {
   Typography,
   Tooltip,
   IconButton,
+  Chip,
 } from "@material-tailwind/react";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 
@@ -27,6 +28,7 @@ const TABLE_HEAD = [
   "Phone",
   "Job",
   "Department",
+  "Secretary",
   "Actions",
 ];
 
@@ -51,6 +53,11 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = () => {
   const handleDeleteDialog = (id: number) => {
     setID({ ...ID, delete: id });
     setDialog({ ...dialog, delete: true });
+  };
+
+  // Get secretary color
+  const getSecretaryColor = (status: boolean) => {
+    return status ? "green" : "red";
   };
 
   return (
@@ -117,6 +124,15 @@ export const EmployeeTable: React.FC<EmployeeTableProps> = () => {
                   </td>
                   <td className={classes}>
                     <SmallTextTable text={employee.departementName} />
+                  </td>
+                  <td className={classes}>
+                    <div className="w-max">
+                      <Chip
+                        variant="ghost"
+                        value={employee.isSecretary ? "Yes" : "No"}
+                        color={getSecretaryColor(employee.isSecretary)}
+                      />
+                    </div>
                   </td>
                   <td className={`${classes} flex flex-row gap-2`}>
                     <Tooltip content="Edit Employee">

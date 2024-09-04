@@ -31,7 +31,8 @@ const EmployeeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     phone: "",
     password: "",
     job: "",
-    departementId: 1
+    departementId: 1,
+    isSecretary: false,
   });
 
   const initRequest = () => {
@@ -42,7 +43,8 @@ const EmployeeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       phone: "",
       password: "",
       job: "",
-      departementId: 1
+      departementId: 1,
+      isSecretary: false,
     });
   };
 

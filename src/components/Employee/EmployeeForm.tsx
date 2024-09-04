@@ -8,6 +8,7 @@ import {
   CardFooter,
   Typography,
   Spinner,
+  Checkbox,
 } from "@material-tailwind/react";
 import { useGlobalContext } from "@/contexts/GlobalProvider";
 import { useEmployeeContext } from "@/contexts/EmployeeProvider";
@@ -52,6 +53,7 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = () => {
     if (key === "departementId") {
       value = parseInt(value as string);
     }
+
     // Update the employee request state
     setRequest({ ...request, [key]: value });
     // Clear the error for this field if any
@@ -62,6 +64,11 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = () => {
   const getError = (key: string) => {
     const input = errors.find((error) => error.key === key);
     return input ? input.message : "";
+  };
+
+  const handleCheckboxChange = (event: any) => {
+    setRequest({ ...request, isSecretary: event.target.checked });
+    handleChange("isSecretary", event.target.checked); // Update your form or state as needed
   };
 
   // Handle Submit function
@@ -213,6 +220,30 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = () => {
                   className="w-full"
                   menuClassName="w-full"
                 />
+                <div className="flex flex-1 justify-start items-center gap-4">
+                  <Checkbox
+                    id="isSecretaryCheckbox"
+                    ripple={false}
+                    className="hover:before:opacity-0"
+                    containerProps={{
+                      className: "p-0",
+                    }}
+                    checked={request.isSecretary}
+                    onChange={handleCheckboxChange}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                    crossOrigin={undefined} // other props as needed
+                  />
+                  <Typography
+                    color="blue-gray"
+                    className="font-medium"
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                  >
+                    Is Secretary
+                  </Typography>
+                </div>
               </CardBody>
               <CardFooter
                 className="pt-0"
