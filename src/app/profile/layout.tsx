@@ -30,7 +30,7 @@ export default function DepratementLayout({
 
     // Check if the user is authorized
     const isAuthorized =
-    fetchedToken && (fetchedRole === "ADMIN");
+      fetchedToken && (fetchedRole === "ADMIN" || fetchedRole === "SECRETARY" || fetchedRole === "EMPLOYEE");
 
     if (!isAuthorized) {
       router.push("/"); // Redirect to login page or another appropriate page
