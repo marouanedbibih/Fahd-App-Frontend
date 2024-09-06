@@ -2,8 +2,8 @@
 
 import { DefaultNavbar } from "@/components/Navbar/DefaultNavbar";
 import { SideBar } from "@/components/Sidebar/SideBar";
-import { DepartementProvider } from "@/contexts/DepartementProvider";
 import { useGlobalContext } from "@/contexts/GlobalProvider";
+import { ScheduleProvider } from "@/contexts/ScheduleProvider";
 import { Spinner } from "@material-tailwind/react";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -59,7 +59,7 @@ export default function DepratementLayout({
         <div className="mb-8 w-full">
           <DefaultNavbar />
         </div>
-        <DepartementProvider>{children}</DepartementProvider>
+        <ScheduleProvider>{children}</ScheduleProvider>
       </main>
     </div>
   );
