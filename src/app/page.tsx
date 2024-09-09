@@ -26,6 +26,8 @@ const Login: React.FC = () => {
     getRoleFromLocalStorage,
     setAlertOpen,
     setMessage,
+    departementID,
+    setDepartementIDInLocalStorage,
   } = useGlobalContext();
 
   // Field error state
@@ -67,6 +69,7 @@ const Login: React.FC = () => {
       // Set token and role in localStorage
       setTokenInLocalStorage(res.data.token);
       setRoleInLocalStorage(res.data.role);
+      setDepartementIDInLocalStorage(res.data.departementId);
       router.push("/profile");
     } catch (err: any) {
       console.log(err);
