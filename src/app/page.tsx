@@ -69,7 +69,7 @@ const Login: React.FC = () => {
       // Set token and role in localStorage
       setTokenInLocalStorage(res.data.token);
       setRoleInLocalStorage(res.data.role);
-      setDepartementIDInLocalStorage(res.data.departementId);
+      setDepartementIDInLocalStorage(res.data.user.departmentId);
       router.push("/profile");
     } catch (err: any) {
       console.log(err);
